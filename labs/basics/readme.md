@@ -1,0 +1,17 @@
+## Go Basics
+
+1. [First](./first/)
+1. [Constants](./constants/)
+1. [Identifiers](./identifiers/)
+1. [Type inference](./type-inference/)
+1. [Formatting](./formatting/)
+1. [Functions](./functions/)
+1. [Pointers](./pointers/)
+1. [Iteration](./iteration/)
+1. [Control](./control/)
+1. [Array and slices](./arrays-and-slices/)
+1. [Maps](./maps/)
+1. [Module and dependencies](./modules-and-dependencies/)
+1. [Structs](./structs/)
+1. [Methods](./methods/)
+1. [Interfaces](./interfaces/)
