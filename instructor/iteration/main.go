@@ -16,4 +16,12 @@ func main() {
 	for ch := 'a'; ch <= 'z'; ch++ {
 		fmt.Printf("%c ", ch)
 	}
+
+	fmt.Println()
+	for rows := 1; rows <= 5; rows++ {
+		for cols := 1; cols <= rows; cols++ {
+			fmt.Printf("* ")
+		}
+		fmt.Println()
+	}
 }
