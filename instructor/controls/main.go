@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	// labelsAndGoTo()
+	labelsAndGoTo()
 
 	fmt.Print("Go runs on ")
 	os := runtime.GOOS
