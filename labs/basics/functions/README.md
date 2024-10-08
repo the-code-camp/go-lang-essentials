@@ -105,7 +105,7 @@ Refactor the ["Interactive Calculator Lab"](../lab/readme.md) solution into func
 ## Defer
 Go's defer statement schedules a function call (the deferred function) to be run immediately before the function executing the defer returns. It's an unusual but effective way to deal with situations such as resources that must be released regardless of which path a function takes to return. The canonical examples are unlocking a mutex or closing a file. 
 
-📋 Example:
+## 📋 Example-1:
 
 ```go
 func main() {
@@ -117,3 +117,71 @@ func releaseResources() {
   fmt.Println("closing and releasinng connections....")
 }
 ```
+## 📋 Example-2:
+
+```go
+func main() {
+    fmt.Println("Start")
+
+    // Defer this function call
+    defer fmt.Println("Deferred: First")
+
+    // Another defer
+    defer fmt.Println("Deferred: Second")
+
+    fmt.Println("End")
+}
+```
+
+## 📋 Using defer for Resource Cleanup
+
+```go
+func main() {
+    // Open a file
+    file, err := os.Open("test.txt")
+    if err != nil {
+        fmt.Println("Error opening file:", err)
+        return
+    }
+
+    // Defer the closing of the file
+    defer file.Close()
+
+    // Perform some file operations
+    fmt.Println("File opened successfully.")
+}
+```
+
+Create a dummy file named test.txt in your project directory:
+```bash
+echo "Hello, Go defer!" > test.txt
+
+# run the program
+go run main.go
+```
+
+## 📋 Defer with Error Handling
+
+In real-world applications, you may want to handle errors that occur during resource cleanup. Let’s update the file-handling example to include error checking.
+
+```go
+
+func main() {
+    file, err := os.Open("test.txt")
+    if err != nil {
+        fmt.Println("Error opening file:", err)
+        return
+    }
+
+    // Defer the closing of the file and check for errors
+    defer func() {
+        if err := file.Close(); err != nil {
+            fmt.Println("Error closing file:", err)
+        }
+    }()
+
+    // Simulate some file operations
+    fmt.Println("File opened successfully.")
+}
+```
+The deferred function now checks for errors when closing the file, ensuring proper handling in case the file closure fails.
