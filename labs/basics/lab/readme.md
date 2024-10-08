@@ -19,3 +19,12 @@ if user input == 1 to 4
 if user input < 1 OR > 5
    print "invalid choice"
    display the menu again
+
+```go
+// code from accepting input from the user
+	var input int
+	fmt.Printf("Enter your choice:")
+	fmt.Scanln(&input)
+
+	fmt.Println("Value is: ", input)
+```
