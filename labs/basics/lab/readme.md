@@ -22,9 +22,9 @@ if user input < 1 OR > 5
 
 ```go
 // code from accepting input from the user
-	var input int
-	fmt.Printf("Enter your choice:")
-	fmt.Scanln(&input)
+var input int
+fmt.Printf("Enter your choice:")
+fmt.Scanln(&input)
 
-	fmt.Println("Value is: ", input)
+fmt.Println("Value is: ", input)
 ```
