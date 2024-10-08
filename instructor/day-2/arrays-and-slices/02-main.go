@@ -16,4 +16,11 @@ func main() {
 	ss = append(ss, 200)
 	fmt.Println("After append to the subslice what happens in the parent?? ", s)
 	fmt.Println("After append subslice: ", ss)
+
+	fmt.Println("USING MAKE")
+	s1 := make([]int, 5, 10)
+	s1[0] = 10
+	s1[1] = 20
+	s1 = append(s1, 99, 100, 101, 102, 103, 104)
+	fmt.Println(s1, len(s1), cap(s1))
 }
