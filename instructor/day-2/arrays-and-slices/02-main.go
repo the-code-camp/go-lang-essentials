@@ -1,0 +1,19 @@
+package main
+
+import "fmt"
+
+func main() {
+	s := []int{1, 2, 3, 4, 5}
+	ss := s[2:4]
+
+	fmt.Println(s, len(s), cap(s))
+
+	fmt.Println(ss, len(ss), cap(ss))
+	ss[0] = 100
+	fmt.Println("After change parent: ", s)
+	fmt.Println("After change subslice: ", ss)
+
+	ss = append(ss, 200)
+	fmt.Println("After append to the subslice what happens in the parent?? ", s)
+	fmt.Println("After append subslice: ", ss)
+}
