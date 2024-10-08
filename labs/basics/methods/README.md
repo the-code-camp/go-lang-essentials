@@ -36,4 +36,41 @@ func main() {
 }
 ```
 
+
+## Apply methods on the Person struct from the previous lab
+Define methods for a struct by associating them with the struct type. 
+
+```go
+type Person struct {
+    FirstName string
+    LastName  string
+    Age       int
+}
+
+// Method to return the full name of the person
+func (p Person) FullName() string {
+    return p.FirstName + " " + p.LastName
+}
+
+// Method to update the age of the person
+func (p *Person) UpdateAge(newAge int) {
+    p.Age = newAge
+}
+
+func main() {
+    person := Person{
+        FirstName: "Liam",
+        LastName:  "Wilson",
+        Age:       35,
+    }
+
+    // Call the FullName method
+    fmt.Println("Full Name:", person.FullName())
+
+    // Update the age using the UpdateAge method
+    person.UpdateAge(36)
+    fmt.Println("Updated Age:", person.Age)
+}
+
+```
 [How to decide on choosing a value or a pointer receiver on methods](https://github.com/golang/go/wiki/CodeReviewComments#receiver-type)
