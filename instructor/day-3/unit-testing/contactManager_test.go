@@ -45,10 +45,10 @@ func Test_phone_number_should_start_with_zero(t *testing.T) {
 	}
 }
 func Test_phone_number_should_only_be_numeric(t *testing.T) {
-	err := addContact("firstname", "lastname", "phone12345")
+	err := addContact("firstname", "lastname", "0phone12345")
 	expected := "phone number should only be numeric"
 
-	if strings.Contains(err.Error(), expected) {
+	if !strings.Contains(err.Error(), expected) {
 		t.Errorf("expected: expected %s, got %s", expected, err.Error())
 	}
 }
