@@ -1,11 +1,38 @@
 package models
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Person struct {
 	FirstName string
 	LastName  string
 	Age       int
+
+	// cannot do things like this
+	// func Validate() error {
+
+	// }
+}
+
+func (p Person) FullName() string {
+	return p.FirstName + " " + p.LastName
+}
+
+// this becomes a method from a function
+// method is associated with Person struct
+// receiver functions in Go
+func (p Person) ValidatePerson() error {
+	if p.FirstName == "" {
+		return errors.New("first name cannot be blank")
+	}
+
+	if p.LastName == "" {
+		return errors.New("last name cannot be blank")
+	}
+
+	return nil
 }
 
 func (p Person) String() string {

@@ -8,6 +8,19 @@ import (
 
 func main() {
 	var p models.Person
+	p.FirstName = ""
+
+	// err := models.ValidatePerson(p)
+
+	err := p.ValidatePerson()
+
+	if err != nil {
+		fmt.Println("Some error: ", err)
+	}
+}
+
+func personsExample() {
+	var p models.Person
 
 	p.FirstName = "firstname"
 	p.LastName = "lastname"
