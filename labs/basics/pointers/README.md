@@ -1,6 +1,30 @@
 ## Pointers
 
-Go supports pointers, allowing you to pass references to values and records within your program.
+Go supports pointers, allowing you to pass references to values and records within your program. Pointers allow you to reference memory locations, enabling efficient manipulation of data without copying values.
+
+Example-1: 
+
+```go
+
+func main() {
+    // Declare a variable
+    a := 42
+
+    // Declare a pointer that stores the address of 'a'
+    var p *int = &a
+
+    fmt.Println("Value of a:", a)
+    fmt.Println("Address of a (pointer p):", p)
+    fmt.Println("Value of a via pointer p:", *p) // Dereferencing the pointer to get the value
+
+    // Modify the value of 'a' through the pointer
+    *p = 100
+    fmt.Println("New value of a (after modifying via pointer):", a)
+}
+
+```
+
+Example-2: 
 
 ```go
 package main
