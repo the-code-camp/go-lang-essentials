@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -36,32 +35,4 @@ func Test_sumOfLetters_should_return_100_when_input_is_excellent(t *testing.T) {
 	if result != 100 {
 		t.Errorf("Expected 100, got %d", result)
 	}
-}
-
-func sumOfLetters(input string) int {
-	letterValues := buildLetterValues()
-	sum := 0
-	for _, c := range input {
-		sum += findValue(letterValues, fmt.Sprintf("%c", c))
-	}
-
-	return sum
-}
-
-func buildLetterValues() []string {
-	letterValues := make([]string, 0)
-	letterValues = append(letterValues, "")
-	for pos := 'a'; pos <= 'z'; pos++ {
-		letterValues = append(letterValues, fmt.Sprintf("%c", pos))
-	}
-	return letterValues
-}
-
-func findValue(letterValues []string, s string) int {
-	for index, c := range letterValues {
-		if s == c {
-			return index
-		}
-	}
-	return 0
 }
