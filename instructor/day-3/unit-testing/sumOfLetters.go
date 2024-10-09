@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 func sumOfLetters(input string) int {
 	letterValues := buildLetterValues()
@@ -22,10 +25,11 @@ func buildLetterValues() []string {
 }
 
 func findValue(letterValues []string, s string) int {
-	for index, c := range letterValues {
-		if s == c {
-			return index
-		}
-	}
-	return 0
+	return slices.Index(letterValues, s)
+	// for index, c := range letterValues {
+	// 	if s == c {
+	// 		return index
+	// 	}
+	// }
+	// return 0
 }
