@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 type Student struct {
 	Name string  `json:"fullname"`
-	Age  int     `json:"-"` //ignore this field
+	Age  int     `json:"age"` //use "-" for ignoring this field in JSON output
 	GPA  float64 `json:"gpa"`
 }
 
@@ -72,17 +74,35 @@ func main() {
 	// fmt.Println("\nAfter deleting Charlie:")
 	// sm.DisplayStudents()
 
-	http.HandleFunc("/greet", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World!!"))
-	})
+	r := mux.NewRouter()
 
-	http.HandleFunc("/students", displayStudents)
+	r.HandleFunc("/greet", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello World!!"))
+	}).Methods(http.MethodGet)
+
+	r.HandleFunc("/students", displayStudentsHandler).Methods(http.MethodGet)
+	r.HandleFunc("/students", addStudentHandler).Methods(http.MethodPost)
+	r.HandleFunc("/students/{id:[0-9]+}", studentHandler).Methods(http.MethodGet)
 
 	log.Println("Starting server on port :8080")
-	log.Fatal(http.ListenAndServe("localhost:8080", nil))
+	log.Fatal(http.ListenAndServe("localhost:8080", r))
 }
 
-func displayStudents(w http.ResponseWriter, r *http.Request) {
+func studentHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello World!!"))
+}
+
+func addStudentHandler(w http.ResponseWriter, r *http.Request) {
+	var s Student
+	json.NewDecoder(r.Body).Decode(&s)
+	sm.AddStudent(s)
+
+	w.Header().Add("Content-Type", "applicaton/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(s)
+}
+
+func displayStudentsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "applicaton/json")
 
 	json.NewEncoder(w).Encode(sm.Students)
