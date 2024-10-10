@@ -1,13 +1,16 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
 )
 
 type Student struct {
-	Name string
-	Age  int
-	GPA  float64
+	Name string  `json:"fullname"`
+	Age  int     `json:"-"` //ignore this field
+	GPA  float64 `json:"gpa"`
 }
 
 type StudentManager struct {
@@ -46,8 +49,8 @@ func (sm *StudentManager) DeleteStudent(name string) {
 	}
 }
 
+var sm StudentManager // Create a new StudentManager instance
 func main() {
-	sm := StudentManager{} // Create a new StudentManager instance
 
 	// Example usage:
 	// Add students
@@ -56,16 +59,31 @@ func main() {
 	sm.AddStudent(Student{Name: "Charlie", Age: 22, GPA: 3.9})
 
 	// Display students
-	fmt.Println("Students:")
-	sm.DisplayStudents()
+	// fmt.Println("Students:")
+	// sm.DisplayStudents()
 
-	// Update student
-	sm.UpdateStudent("Bob", Student{Name: "Bob", Age: 22, GPA: 3.3})
-	fmt.Println("\nAfter updating Bob's details:")
-	sm.DisplayStudents()
+	// // Update student
+	// sm.UpdateStudent("Bob", Student{Name: "Bob", Age: 22, GPA: 3.3})
+	// fmt.Println("\nAfter updating Bob's details:")
+	// sm.DisplayStudents()
 
-	// Delete student
-	sm.DeleteStudent("Charlie")
-	fmt.Println("\nAfter deleting Charlie:")
-	sm.DisplayStudents()
+	// // Delete student
+	// sm.DeleteStudent("Charlie")
+	// fmt.Println("\nAfter deleting Charlie:")
+	// sm.DisplayStudents()
+
+	http.HandleFunc("/greet", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello World!!"))
+	})
+
+	http.HandleFunc("/students", displayStudents)
+
+	log.Println("Starting server on port :8080")
+	log.Fatal(http.ListenAndServe("localhost:8080", nil))
+}
+
+func displayStudents(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "applicaton/json")
+
+	json.NewEncoder(w).Encode(sm.Students)
 }
